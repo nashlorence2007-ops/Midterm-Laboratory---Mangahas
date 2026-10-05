@@ -1,0 +1,202 @@
+using System;
+
+struct Student
+{
+    public string StudentNumber;
+    public string Name;
+    public string Program;
+    public int YearLevel;
+}
+
+class Program
+{
+    static void Main()
+    {
+        Student[] students = new Student[11];
+        int studentCount = 1;
+        int choice = 1;
+
+        while (choice != 6) 
+        {
+   
+            Console.WriteLine("        STUDENT RECORD MANAGEMENT       ");
+           
+            Console.WriteLine("1. Add Student");
+            Console.WriteLine("2. Display All Students");
+            Console.WriteLine("3. Search Student");
+            Console.WriteLine("4. Update Student");
+            Console.WriteLine("5. Delete Student");
+            Console.WriteLine("6. Exit");
+
+            Console.Write("Enter Choice: ");
+            choice = Convert.ToInt32(Console.ReadLine());
+
+            if (choice > 6 || choice <= 0)
+            {
+                Console.WriteLine("Invalid Input!");
+            }
+
+             else if (choice == 1)
+            {
+                if (studentCount < students.Length)
+                {
+                    Student s = new Student();
+
+                    Console.Write("Student's Number: ");
+                    s.StudentNumber = Console.ReadLine()!;
+
+                    Console.WriteLine("Student's Name: ");
+                    s.Name = Console.ReadLine()!;
+
+                    Console.WriteLine("Student's Program: ");
+                    s.Program = Console.ReadLine()!;
+
+                    Console.WriteLine("Year Level: ");
+                    s.YearLevel = Convert.ToInt32(Console.ReadLine());
+                    students[studentCount] = s;
+                    studentCount++;
+
+                    Console.WriteLine("Student added successfully! ");
+                }
+
+                else {
+                        Console.WriteLine("Array is full. Cannot add more students.");
+                    }
+            }
+            else if (choice == 2)
+            {
+                for (int i = 1; i < studentCount; i++)
+                {
+                    Console.WriteLine($"Student Number: {students[i].StudentNumber}");
+                    Console.WriteLine($"Student Name: {students[i].Name}");
+                    Console.WriteLine($"Student Program: {students[i].Program}");
+                    Console.WriteLine($"Student Year Level: {students[i].YearLevel}");
+                    Console.WriteLine("");
+                }
+            }
+            else if (choice == 3)
+            {
+                Console.WriteLine("Search for a student using their assigned Student Number: ");
+                string studentNumInput = Console.ReadLine()!;
+
+                bool found = false;
+
+                for (int i = 1; i < studentCount; i++)
+                {
+                    if (students[i].StudentNumber == studentNumInput)
+                    {
+                        Console.WriteLine("Student Found!");
+                        Console.WriteLine($"Student Number: {students[i].StudentNumber}");
+                        Console.WriteLine($"Student Name: {students[i].Name}");
+                        Console.WriteLine($"Student Program: {students[i].Program}");
+                        Console.WriteLine($"Student Year Level: {students[i].YearLevel}");
+                        Console.WriteLine("");
+
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    {
+                        Console.WriteLine("Student not Found!");
+                    }
+            }
+            else if (choice == 4)
+            {
+                Console.Write("Enter Student Number to update: ");
+                string studentNumInput = Console.ReadLine()!;
+
+                bool found = false;
+
+                for (int i = 1; i < studentCount; i++)
+                {
+                    if (students[i].StudentNumber == studentNumInput)
+                    {
+                        Console.WriteLine("Student Found!");
+
+                        Console.WriteLine($"Student Number: {students[i].StudentNumber}");
+                        Console.WriteLine($"Student Name: {students[i].Name}");
+                        Console.WriteLine($"Student Program: {students[i].Program}");
+                        Console.WriteLine($"Student Year Level: {students[i].YearLevel}");
+
+                        Console.WriteLine("");
+                        Console.WriteLine("What information do you want to update?");
+                        Console.WriteLine("1. Name");
+                        Console.WriteLine("2. Program");
+                        Console.WriteLine("3. Year Level");
+
+                        Console.Write("Enter choice: ");
+                        int updateChoice = Convert.ToInt32(Console.ReadLine());
+
+                        if (updateChoice == 1)
+                        {
+                            Console.Write("Enter new name: ");
+                            students[i].Name = Console.ReadLine()!;
+
+                            Console.WriteLine("Name updated successfully!");
+                        }
+                        else if (updateChoice == 2)
+                        {
+                            Console.Write("Enter new program: ");
+                            students[i].Program = Console.ReadLine()!;
+
+                            Console.WriteLine("Program updated successfully!");
+                        }
+                        else if (updateChoice == 3)
+                        {
+                            Console.Write("Enter new year level: ");
+                            students[i].YearLevel = Convert.ToInt32(Console.ReadLine());
+
+                            Console.WriteLine("Year level updated successfully!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid update choice!");
+                        }
+
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    Console.WriteLine("Student not Found!");
+                }
+            }
+            else if (choice == 5)
+            {
+                Console.WriteLine("Which student record do you want to delete? (INPUT Student Number!): ");
+                string studentNumInput = Console.ReadLine()!;
+
+                bool found = false;
+
+                for (int i = 1; i < studentCount; i++)
+                {
+                    if (students[i].StudentNumber == studentNumInput)
+                    {
+                        for (int j = i; j < studentCount - 1; j++)
+                        {
+                            students[j] = students[j + 1];
+                        }
+                        students[studentCount - 1] = new Student();
+                        studentCount--;
+
+                        Console.WriteLine("Student deleted successfully!");
+
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    {
+                        Console.WriteLine("Student not Found!");
+                    }
+            }
+            else if (choice == 6)
+            {
+                Console.WriteLine("Goodybe!");
+                return;
+            }
+        }
+    }
+}
